@@ -24,12 +24,14 @@ your attacking machine.
 ## Expected updates:
 - Rust version
 - Bash one-liner
-- Continous streaming
+- Continous streaming:
     - Currently you need to break the socket and reconnect for updated data
-- Eaiser readable format
+- Eaiser readable format:
     - At the moment, the data is very messy and not very 
 predicatable. Currently working on a way to grep out user and password 
-data only. 
+data only.
+- Better status updates:
+    - Have the program be informed when it recieves an SSH connection and possibly display user:pass to terminal. (Need to find a reliable way to grep first.)
 
 ## Demo:
 https://github.com/JitBox/SSHniffer/assets/64562427/a60a6a04-feee-4697-a323-e549c39c49d4
