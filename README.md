@@ -15,19 +15,22 @@ machine, simply open up a NetCat port that you have the agent configured
 to connect back to and the agent will pipe it over to you.
 
 ## How to use this tool?
-This is a very simple to use program. Simply download the shell script and 
+This is a very simple to use program. Simply download the python script and 
 modify it to send data back to your IP and Port. Once configured, place 
-the shell script on the compromised linux device, change its permissions 
-to chmod +x and execute under root context. This tool will run in the 
+the shell script on the compromised linux device, and execute "python3 SSHniffer.py" with root context. This tool will continously run in the 
 background and send data once you open up the configured listening port on 
 your attacking machine. 
 
 ## Expected updates:
 - Rust version
-- Bash oneliner
+- Bash one-liner
 - Continous streaming
     - Currently you need to break the socket and reconnect for updated data
 - Eaiser readable format
     - At the moment, the data is very messy and not very 
 predicatable. Currently working on a way to grep out user and password 
 data only. 
+
+## Demo:
+https://github.com/JitBox/SSHniffer/assets/64562427/a60a6a04-feee-4697-a323-e549c39c49d4
+
